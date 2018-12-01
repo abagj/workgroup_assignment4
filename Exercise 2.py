@@ -18,9 +18,9 @@ class Node:
         self.edges = edges
 
         
-    def add_edges(self,x, y):
-        dic = {"node":x,"weight":y}
-        self.edges.append(dict(dic))
+    def add_edges(self,node, weight):
+        self.edges.append({"node":node, "weight":weight})   
+
         
    
 class Graph: 
@@ -31,47 +31,42 @@ class Graph:
         return node.edges
 
 
-
-    def find_path_weighted(self, start, end, path = [], weight = 0):
-        
-        
-        path = path + [{"node":start,"weight":weight}]    
-        
-        if start == end:
-            return path
-        
-        if start not in self.lst:
-            return None
-        
-        for conn in self.get_edges:
-            
-            if conn not in path:
-                new_path = self.find_path_weighted(
-                        self.lst,
-                        conn["node"],
-                        end,
-                        path,
-                        conn["weight"]
-                        )
-                
-                if new_path is not None: 
-                    return new_path
-                
-                
-        return None
-
-
-
-
-
+    def find_all_paths(self,start,end,path = [],weight = 0):
+            path = path + [{"node":start, "weight":weight}]
+            if start == end:
+                return [path]
+            if start not in self.nodes:
+                return []
+            paths = []
+            for conn in self.get_edges(start):
+                if conn not in path:
+                    new_paths = self.find_all_paths(conn["node"], end,path,conn["weight"])
+                    for newpath in new_paths:
+                        paths.append(newpath)
+            return paths
+    
+    def cheapest_path(self,start,end):
+            all_paths = self.find_all_paths(start, end)
+            cheapest = None
+            for path in all_paths:
+                cost = 0
+                for step in path:
+                    cost += step["weight"]
+                if cheapest is None or cost < cheapest:
+                    cheapest = cost
+            return cheapest
+      
+    
 
 a = Node("a", [])
 b = Node("b", [])
-c = Node("c", [])
-d = Node("d", [])
-a.add_edges(b, 9)
-a.add_edges(c, 2)
-b.add_edges(d, 6)
-c.add_edges(d, 6)
+c = Node("c",[])
+d = Node("d",[])
+a.add_edge(b,6)
+a.add_edge(c,2)
+b.add_edge(d,3)
+c.add_edge(d,8)
+
+graph = Graph([a,b,c,d])
 
 
