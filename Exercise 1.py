@@ -4,9 +4,6 @@ Created on Tue Nov 27 10:30:19 2018
 
 @author: tancr
 """
-
-
-
 #%%
 
 #1. 2.5 points. In a graphs module, implement a directed graph data
@@ -66,28 +63,3 @@ c.add_edges(d)
 
 
 graph = Graph([a,b,c,d])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
