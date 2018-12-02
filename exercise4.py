@@ -56,5 +56,3 @@ nx.shortest_path(graph, 'a', 'd', weight='weight') # returns shortest path
 plt.subplot(122)
 nx.draw_shell(graph, with_labels=True, font_weight='bold')
 plt.show()
-
-#%%
